@@ -1,0 +1,10 @@
+Model,Accuracy,Precision (class 1),Recall (class 1),Test F1 (class 1)
+XGB Tuned (balanced) (t=0.60),0.7949,0.2867,0.5151,0.3684
+Random Forest,0.7307,0.2457,0.6373,0.3547
+XGB Tuned (balanced),0.7097,0.2345,0.6626,0.3465
+XGBoost,0.7032,0.2315,0.6705,0.3442
+RF Tuned (balanced),0.8385,0.3252,0.3635,0.3433
+LR + SMOTE,0.6521,0.2104,0.6421,0.317
+Decision Tree,0.8512,0.4812,0.1204,0.1926
+XGB (no weight),0.8867,0.5989,0.073,0.1301
+Logistic Regression,0.8842,0.5123,0.021,0.0403

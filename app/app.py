@@ -14,7 +14,7 @@ import os
 
 from src.inference import load_model, predict
 from src.config import (
-    MODEL_PATH, RESULTS_PATH,
+    MODEL_PATH, RESULTS_PATH, TARGET,
     NUMERICAL_FEATURES, CATEGORICAL_FEATURES
 )
 
@@ -23,6 +23,28 @@ from src.config import (
 def get_model():
     """Load the trained pipeline once and cache it."""
     return load_model(MODEL_PATH)
+
+
+@st.cache_resource
+def get_config():
+    """Load threshold and config."""
+    import pickle
+    config_path = 'models/model_config.pkl'
+    if os.path.exists(config_path):
+        with open(config_path, 'rb') as f:
+            return pickle.load(f)
+    return {'threshold': 0.5, 'feature_engineering': False}
+
+
+def add_features(df):
+    """Add engineered features to match training."""
+    df = df.copy()
+    df['Loan_to_Income'] = df['LoanAmount'] / (df['Income'] + 1)
+    df['Interest_x_Loan'] = df['InterestRate'] * df['LoanAmount']
+    df['DTI_x_Loan'] = df['DTIRatio'] * df['LoanAmount']
+    df['Credit_per_Line'] = df['CreditScore'] / (df['NumCreditLines'] + 1)
+    df['Income_per_Month_Employed'] = df['Income'] / (df['MonthsEmployed'] + 1)
+    return df
 
 
 @st.cache_resource
@@ -103,6 +125,13 @@ def main():
                 'HasCoSigner': [has_cosigner],
             }
             input_df = pd.DataFrame(input_data)
+
+            # Apply feature engineering if the model was trained with it
+            config = get_config()
+            threshold = config.get('threshold', 0.5)
+            if config.get('feature_engineering', False):
+                input_df = add_features(input_df)
+
             result = predict(model, input_df)
             probability = result['probability']
 
@@ -110,8 +139,8 @@ def main():
             st.markdown("### Assessment Result")
             col_r1, col_r2 = st.columns([2, 1])
             with col_r1:
-                if probability >= 0.5:
-                    st.error(f"⚠️ **HIGH RISK OF DEFAULT** — Probability: {probability*100:.1f}%")
+                if probability >= threshold:
+                    st.error(f"⚠️ **HIGH RISK OF DEFAULT** — Probability: {probability*100:.1f}% (threshold: {threshold*100:.0f}%)")
                 else:
                     st.success(f"✅ **LOW RISK** — Default Probability: {probability*100:.1f}%")
             with col_r2:
