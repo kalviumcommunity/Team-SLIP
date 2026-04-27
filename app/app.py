@@ -146,13 +146,27 @@ def main():
 
                     shap_values = explainer.shap_values(input_transformed)
 
-                    # Handle binary classification (list of 2) vs single array
+                    # Handle different SHAP output formats:
+                    # - Random Forest: list of 2 arrays [class0_shap, class1_shap]
+                    # - XGBoost: single 2D array
+                    # - Some versions: 3D array (n_samples, n_features, n_classes)
                     if isinstance(shap_values, list):
-                        sv = shap_values[1][0]  # class 1 (Default)
-                        base_val = explainer.expected_value[1]
+                        # list of [class0, class1] arrays
+                        sv = shap_values[1][0]  # class 1 (Default), first sample
+                        ev = explainer.expected_value
+                        base_val = ev[1] if isinstance(ev, (list, np.ndarray)) else float(ev)
+                    elif hasattr(shap_values, 'ndim') and shap_values.ndim == 3:
+                        # 3D array: (n_samples, n_features, n_classes)
+                        sv = shap_values[0, :, 1]  # first sample, all features, class 1
+                        ev = explainer.expected_value
+                        base_val = ev[1] if isinstance(ev, (list, np.ndarray)) else float(ev)
                     else:
+                        # single 2D array (XGBoost style)
                         sv = shap_values[0]
-                        base_val = explainer.expected_value
+                        base_val = float(explainer.expected_value) if not isinstance(explainer.expected_value, (list, np.ndarray)) else float(explainer.expected_value[0])
+                    
+                    # Ensure sv is a flat 1D array
+                    sv = np.array(sv).flatten()
 
                     # Build a DataFrame of top contributing features
                     contributions = pd.DataFrame({
