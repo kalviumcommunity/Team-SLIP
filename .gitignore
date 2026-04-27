@@ -1,12 +1,15 @@
 .DS_Store
 __pycache__/
 *.pyc
-*.ipynb_checkpoints/
+.ipynb_checkpoints/
 .venv/
 env/
 venv/
 .env
-data/processed/
 data/raw/
+data/processed/
 models/*.pkl
 models/*.joblib
+*.egg-info/
+dist/
+build/
