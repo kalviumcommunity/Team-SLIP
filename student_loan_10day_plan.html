@@ -1,0 +1,363 @@
+
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; }
+.plan-wrap { padding: 8px 0 24px; }
+.phase-header { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text-tertiary); margin: 28px 0 10px; padding-left: 4px; }
+.day-card { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); margin-bottom: 10px; overflow: hidden; }
+.day-header { display: flex; align-items: center; gap: 12px; padding: 14px 18px; cursor: pointer; user-select: none; }
+.day-header:hover { background: var(--color-background-primary); }
+.day-num { font-size: 12px; font-weight: 500; color: var(--color-text-tertiary); min-width: 44px; }
+.day-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); flex: 1; }
+.day-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+.tag-uday { background: #EEEDFE; color: #3C3489; }
+.tag-vaibhav { background: #E1F5EE; color: #0F6E56; }
+.tag-both { background: #FAEEDA; color: #633806; }
+.chevron { font-size: 12px; color: var(--color-text-tertiary); transition: transform 0.2s; }
+.day-body { display: none; padding: 0 18px 18px; }
+.day-body.open { display: block; }
+.day-card.open .chevron { transform: rotate(90deg); }
+.section-label { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); margin: 14px 0 6px; letter-spacing: 0.05em; text-transform: uppercase; }
+.task-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+.who { font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 12px; flex-shrink: 0; margin-top: 1px; }
+.who-u { background: #EEEDFE; color: #3C3489; }
+.who-v { background: #E1F5EE; color: #0F6E56; }
+.who-b { background: #FAEEDA; color: #633806; }
+.task-text { font-size: 13px; color: var(--color-text-primary); line-height: 1.55; }
+.resource-box { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: 8px; padding: 10px 14px; margin-top: 12px; }
+.resource-box .rl { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+.resource-box a { font-size: 12px; color: var(--color-text-info); text-decoration: none; display: block; margin-bottom: 4px; line-height: 1.5; }
+.resource-box a:hover { text-decoration: underline; }
+.deliverable { background: var(--color-background-primary); border-left: 3px solid #1D9E75; border-radius: 0 6px 6px 0; padding: 8px 12px; margin-top: 12px; font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; }
+.milestone-bar { display: flex; gap: 0; margin-bottom: 18px; border-radius: 6px; overflow: hidden; }
+.ms { flex: 1; height: 5px; }
+.ms-done { background: #1D9E75; }
+.ms-mid { background: #EF9F27; }
+.ms-end { background: #534AB7; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.leg-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-secondary); }
+.leg-dot { width: 10px; height: 10px; border-radius: 50%; }
+</style>
+
+<div class="plan-wrap">
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#3C3489"></div> Uday</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#0F6E56"></div> Vaibhav</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#633806"></div> Both together</div>
+  </div>
+  <div class="milestone-bar">
+    <div class="ms ms-done" style="flex:3"></div>
+    <div class="ms ms-mid" style="flex:4"></div>
+    <div class="ms ms-end" style="flex:3"></div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase-header">Phase 1 — Setup & Data (Days 1–3)</div>
+
+  <!-- DAY 1 -->
+  <div class="day-card" id="d1">
+    <div class="day-header" onclick="toggle('d1')">
+      <span class="day-num">Day 1</span>
+      <span class="day-title">Project setup, GitHub, environment & dataset download</span>
+      <div class="day-tags"><span class="tag tag-both">Both</span></div>
+      <span class="chevron">▶</span>
+    </div>
+    <div class="day-body" id="d1b">
+      <div class="section-label">Morning — Uday</div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Create GitHub repo named <code>loan-default-predictor</code>. Set it to public. Add a README with 3-line project description and your names.</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Create the full folder structure on his local machine: <code>data/raw/</code>, <code>data/processed/</code>, <code>notebooks/</code>, <code>src/</code>, <code>models/</code>, <code>app/</code>, <code>docs/</code>. Push it.</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Create virtual environment: <code>python -m venv venv</code>, activate it, install: <code>pandas numpy matplotlib seaborn scikit-learn imbalanced-learn streamlit jupyter pickle5</code>. Freeze into <code>requirements.txt</code>.</span></div>
+
+      <div class="section-label">Morning — Vaibhav</div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Go to Kaggle. Download the dataset from the link below. File is <code>accepted_2007_to_2018Q4.csv.gz</code>. Place it inside <code>data/raw/</code>. Do NOT unzip yet — pandas can read .gz directly.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Clone the GitHub repo Uday created. Confirm both can push and pull without errors.</span></div>
+
+      <div class="section-label">Afternoon — Both</div>
+      <div class="task-row"><span class="who who-b">Both</span><span class="task-text">Create <code>notebooks/01_data_exploration.ipynb</code>. Load the first 50,000 rows only using <code>pd.read_csv(..., nrows=50000)</code> to avoid memory crash on first open. Confirm it loads.</span></div>
+      <div class="task-row"><span class="who who-b">Both</span><span class="task-text">Write the HLD document in <code>docs/HLD.md</code>. It should have: Problem Statement, System Pipeline (Data → Clean → Features → Model → API → Streamlit), Inputs/Outputs, Tech Stack, Evaluation Metrics you plan to use.</span></div>
+
+      <div class="resource-box">
+        <div class="rl">Resources for Day 1</div>
+        <a href="https://www.kaggle.com/datasets/wordsforthewise/lending-club" target="_blank">→ Dataset: Lending Club (Kaggle) — wordsforthewise version</a>
+        <a href="https://www.kaggle.com/datasets/adarshsng/lending-club-loan-data-csv" target="_blank">→ Backup dataset (smaller, easier to load): adarshsng version</a>
+        <a href="https://docs.github.com/en/get-started/quickstart/create-a-repo" target="_blank">→ GitHub: How to create a repo (official guide)</a>
+        <a href="https://docs.python.org/3/library/venv.html" target="_blank">→ Python venv docs (official)</a>
+      </div>
+      <div class="deliverable">✓ End of Day 1: Repo live on GitHub, venv working on both machines, dataset downloaded, HLD written, folder structure pushed.</div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-card" id="d2">
+    <div class="day-header" onclick="toggle('d2')">
+      <span class="day-num">Day 2</span>
+      <span class="day-title">Data cleaning, target variable creation, leakage check</span>
+      <div class="day-tags"><span class="tag tag-uday">Uday</span><span class="tag tag-vaibhav">Vaibhav</span></div>
+      <span class="chevron">▶</span>
+    </div>
+    <div class="day-body" id="d2b">
+      <div class="section-label">Uday — Target Variable</div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Filter <code>loan_status</code> column. Keep only rows where value is "Fully Paid" or "Charged Off". Map to binary: Charged Off = 1 (default), Fully Paid = 0. Print class distribution. You'll see roughly 80/20 split.</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Drop all leakage columns — these only exist AFTER a loan defaults: <code>recoveries</code>, <code>collection_recovery_fee</code>, <code>last_pymnt_amnt</code>, <code>total_rec_late_fee</code>, <code>out_prncp</code>, <code>out_prncp_inv</code>. Document why in a markdown cell.</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Drop columns with more than 40% missing values. Code: <code>df.dropna(thresh=len(df)*0.6, axis=1)</code>.</span></div>
+
+      <div class="section-label">Vaibhav — Feature Selection</div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">From remaining columns, select these 15 features to keep (these are pre-loan application data only): <code>loan_amnt, term, int_rate, installment, grade, sub_grade, emp_length, home_ownership, annual_inc, verification_status, purpose, dti, delinq_2yrs, open_acc, revol_util</code>.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Separate features into two lists: NUMERICAL = [loan_amnt, int_rate, installment, annual_inc, dti, delinq_2yrs, open_acc, revol_util] and CATEGORICAL = [term, grade, sub_grade, emp_length, home_ownership, verification_status, purpose]. Save these lists as constants in <code>src/config.py</code>.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Handle missing values: for numerical — fill with median. For categorical — fill with mode. Do this BEFORE train-test split to document it but actually IMPLEMENT it inside the pipeline on Day 5.</span></div>
+
+      <div class="resource-box">
+        <div class="rl">Resources for Day 2</div>
+        <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dropna.html" target="_blank">→ pandas dropna docs (for dropping high-missing columns)</a>
+        <a href="https://www.kaggle.com/datasets/wordsforthewise/lending-club" target="_blank">→ LendingClub data dictionary (download "LCDataDictionary.xlsx" from same Kaggle page)</a>
+      </div>
+      <div class="deliverable">✓ End of Day 2: Clean dataframe saved to <code>data/processed/clean_df.csv</code>. No leakage columns. Target column created. Feature lists saved in config.py.</div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-card" id="d3">
+    <div class="day-header" onclick="toggle('d3')">
+      <span class="day-num">Day 3</span>
+      <span class="day-title">EDA, distribution plots, train-test split & LLD</span>
+      <div class="day-tags"><span class="tag tag-uday">Uday</span><span class="tag tag-vaibhav">Vaibhav</span></div>
+      <span class="chevron">▶</span>
+    </div>
+    <div class="day-body" id="d3b">
+      <div class="section-label">Uday — EDA Plots</div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Plot histogram of every numerical feature using seaborn. Note which ones are right-skewed (annual_inc, loan_amnt will be). Save plots to <code>docs/eda_plots/</code>.</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Plot class imbalance as a bar chart: count of 0s vs 1s. Calculate exact ratio. This number goes into your documentation and tells you why accuracy is a bad metric.</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Plot correlation heatmap of numerical features vs target. Look for any feature with >0.8 correlation with another feature — that's multicollinearity, note it.</span></div>
+
+      <div class="section-label">Vaibhav — Train-Test Split & LLD</div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Perform stratified train-test split: 80/20, <code>stratify=y</code> to maintain class ratio. Random state = 42. Save X_train, X_test, y_train, y_test as CSVs to <code>data/processed/</code>.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Write LLD document in <code>docs/LLD.md</code>. It must include: exact column names for features, preprocessing steps with order (impute → encode → scale), model class names from sklearn, evaluation metrics with formulas, file paths for saved models.</span></div>
+
+      <div class="resource-box">
+        <div class="rl">Resources for Day 3</div>
+        <a href="https://seaborn.pydata.org/tutorial/distributions.html" target="_blank">→ Seaborn distribution plots tutorial (official)</a>
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html" target="_blank">→ sklearn train_test_split with stratify (official docs)</a>
+      </div>
+      <div class="deliverable">✓ End of Day 3: EDA notebook complete with 6+ plots. Train/test CSVs saved. LLD written. Both documents pushed to GitHub.</div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-header">Phase 2 — Modeling (Days 4–7)</div>
+
+  <!-- DAY 4 -->
+  <div class="day-card" id="d4">
+    <div class="day-header" onclick="toggle('d4')">
+      <span class="day-num">Day 4</span>
+      <span class="day-title">Baseline model + Logistic Regression + confusion matrix</span>
+      <div class="day-tags"><span class="tag tag-uday">Uday</span><span class="tag tag-vaibhav">Vaibhav</span></div>
+      <span class="chevron">▶</span>
+    </div>
+    <div class="day-body" id="d4b">
+      <div class="section-label">Uday — Baseline</div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Build a dummy baseline using <code>DummyClassifier(strategy='most_frequent')</code>. Train it, predict on test set. Calculate accuracy, precision, recall, F1. This is your floor — every real model must beat this.</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Print and save the baseline confusion matrix using <code>ConfusionMatrixDisplay</code>. Observe: it will predict everything as class 0 (no default). That's the problem with imbalanced data.</span></div>
+
+      <div class="section-label">Vaibhav — Logistic Regression</div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Build a preprocessing pipeline using <code>sklearn.pipeline.Pipeline</code>: Step 1 — <code>SimpleImputer(strategy='median')</code> for numerical, <code>SimpleImputer(strategy='most_frequent')</code> for categorical. Step 2 — <code>OneHotEncoder(handle_unknown='ignore')</code> for categorical, <code>StandardScaler()</code> for numerical. Use <code>ColumnTransformer</code> to combine both.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Add <code>LogisticRegression(max_iter=1000, random_state=42)</code> as final step. Fit on X_train only. Predict on X_test. Print classification report (precision, recall, F1 for both classes).</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Print confusion matrix. Compare with baseline. Document: "Logistic Regression improves F1 for class 1 (defaulters) from X to Y vs baseline."</span></div>
+
+      <div class="resource-box">
+        <div class="rl">Resources for Day 4</div>
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyClassifier.html" target="_blank">→ sklearn DummyClassifier (baseline)</a>
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html" target="_blank">→ sklearn Pipeline (official docs)</a>
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.compose.ColumnTransformer.html" target="_blank">→ ColumnTransformer for mixed feature types</a>
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html" target="_blank">→ classification_report (precision, recall, F1)</a>
+      </div>
+      <div class="deliverable">✓ End of Day 4: Baseline scores documented. Logistic Regression pipeline working. Both confusion matrices saved as images.</div>
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day-card" id="d5">
+    <div class="day-header" onclick="toggle('d5')">
+      <span class="day-num">Day 5</span>
+      <span class="day-title">Handle class imbalance — class weights + SMOTE</span>
+      <div class="day-tags"><span class="tag tag-uday">Uday</span><span class="tag tag-vaibhav">Vaibhav</span></div>
+      <span class="chevron">▶</span>
+    </div>
+    <div class="day-body" id="d5b">
+      <div class="section-label">Uday — Class Weights Approach</div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Retrain Logistic Regression with <code>class_weight='balanced'</code>. Compare F1 on minority class (defaulters) vs the previous model without class weights. The recall for class 1 should jump significantly.</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Explain in a markdown cell: class_weight='balanced' makes sklearn internally multiply the loss for minority class samples. It doesn't create new data — it just penalizes misclassifying defaulters more.</span></div>
+
+      <div class="section-label">Vaibhav — SMOTE Approach</div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Install imbalanced-learn: <code>pip install imbalanced-learn</code>. IMPORTANT: Use <code>imblearn.pipeline.Pipeline</code>, NOT sklearn's Pipeline, because SMOTE must only run on training data and imblearn's pipeline handles this correctly.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Apply SMOTE only on X_train after preprocessing. Code: <code>from imblearn.over_sampling import SMOTE</code>. Fit on training data only. Never apply SMOTE to test data. Print before/after class distribution.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Train Logistic Regression on SMOTE-resampled training data. Evaluate on ORIGINAL (non-SMOTE) test data. Compare F1 for class 1 across all 3 approaches: no-fix, class weights, SMOTE. Build a comparison table.</span></div>
+
+      <div class="resource-box">
+        <div class="rl">Resources for Day 5</div>
+        <a href="https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html" target="_blank">→ SMOTE official docs (imbalanced-learn)</a>
+        <a href="https://machinelearningmastery.com/smote-oversampling-for-imbalanced-classification/" target="_blank">→ SMOTE tutorial with code — MachineLearningMastery</a>
+        <a href="https://imbalanced-learn.org/stable/references/pipeline.html" target="_blank">→ imblearn Pipeline (use this, not sklearn Pipeline, with SMOTE)</a>
+      </div>
+      <div class="deliverable">✓ End of Day 5: 3-way comparison table (baseline, class_weight, SMOTE). Best imbalance strategy identified. Notebook saved as <code>notebooks/03_imbalance.ipynb</code>.</div>
+    </div>
+  </div>
+
+  <!-- DAY 6 -->
+  <div class="day-card" id="d6">
+    <div class="day-header" onclick="toggle('d6')">
+      <span class="day-num">Day 6</span>
+      <span class="day-title">KNN + Decision Tree + feature importance</span>
+      <div class="day-tags"><span class="tag tag-uday">Uday</span><span class="tag tag-vaibhav">Vaibhav</span></div>
+      <span class="chevron">▶</span>
+    </div>
+    <div class="day-body" id="d6b">
+      <div class="section-label">Uday — KNN</div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Train KNN with k=5 first. Then use GridSearchCV to tune k over [3, 5, 7, 11, 15]. Use cv=5, scoring='f1'. Print best k and best F1 score.</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Note that KNN will be slow on large data. If it's taking too long, sample 30,000 rows from training set for KNN only. Document this limitation.</span></div>
+
+      <div class="section-label">Vaibhav — Decision Tree + Feature Importance</div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Train <code>DecisionTreeClassifier(random_state=42)</code>. First without depth limit (will overfit — high train F1, low test F1). Then tune <code>max_depth</code> over [3, 5, 7, 10] with GridSearchCV. Diagnose bias vs variance.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Extract feature importances from the tuned tree. Plot a horizontal bar chart of top 10 features. This is one of the most visually impressive outputs of the project — save it as <code>docs/feature_importance.png</code>.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Write a 3-line interpretation: "Interest rate is the most important predictor because borrowers with high rates are already assessed as riskier by lenders." This narrative matters in interviews.</span></div>
+
+      <div class="resource-box">
+        <div class="rl">Resources for Day 6</div>
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html" target="_blank">→ KNeighborsClassifier (sklearn docs)</a>
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html" target="_blank">→ DecisionTreeClassifier (sklearn docs)</a>
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html" target="_blank">→ GridSearchCV (sklearn docs)</a>
+      </div>
+      <div class="deliverable">✓ End of Day 6: KNN and Decision Tree both trained and tuned. Feature importance chart saved. Notebook: <code>notebooks/04_models.ipynb</code>.</div>
+    </div>
+  </div>
+
+  <!-- DAY 7 -->
+  <div class="day-card" id="d7">
+    <div class="day-header" onclick="toggle('d7')">
+      <span class="day-num">Day 7</span>
+      <span class="day-title">Model comparison, final model selection & pickle save</span>
+      <div class="day-tags"><span class="tag tag-both">Both</span></div>
+      <span class="chevron">▶</span>
+    </div>
+    <div class="day-body" id="d7b">
+      <div class="section-label">Both — Model Comparison Table</div>
+      <div class="task-row"><span class="who who-b">Both</span><span class="task-text">Create a summary DataFrame with all models as rows and columns: Model Name | Train F1 | Test F1 | Test Precision | Test Recall | Test Accuracy. Fill in all 4 models: Logistic Regression, LR + class_weight, LR + SMOTE, KNN, Decision Tree.</span></div>
+      <div class="task-row"><span class="who who-b">Both</span><span class="task-text">Pick final model based on: highest Test F1 for class 1 (defaulters), not overall accuracy. Justify: "We optimize for recall on defaulters because missing a real default (false negative) is more costly than a false alarm."</span></div>
+
+      <div class="section-label">Uday — Save Model</div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Save the full pipeline (preprocessing + model together) using pickle: <code>import pickle; with open('models/final_model.pkl', 'wb') as f: pickle.dump(pipeline, f)</code>. Do NOT save model and preprocessor separately — they must be one pickle object.</span></div>
+
+      <div class="section-label">Vaibhav — Load & Test</div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">In a NEW notebook, load the pickle file and run inference on 5 sample rows from the test set. Confirm predictions match what was output during training. This verifies the save worked.</span></div>
+
+      <div class="resource-box">
+        <div class="rl">Resources for Day 7</div>
+        <a href="https://scikit-learn.org/stable/model_persistence.html" target="_blank">→ sklearn model persistence with pickle (official docs)</a>
+        <a href="https://scikit-learn.org/stable/modules/model_evaluation.html" target="_blank">→ sklearn model evaluation metrics guide</a>
+      </div>
+      <div class="deliverable">✓ End of Day 7: final_model.pkl saved in models/. Comparison table created. Final model justified in writing. Both agree on which model to ship.</div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-header">Phase 3 — App, Docs & Polish (Days 8–10)</div>
+
+  <!-- DAY 8 -->
+  <div class="day-card" id="d8">
+    <div class="day-header" onclick="toggle('d8')">
+      <span class="day-num">Day 8</span>
+      <span class="day-title">Build the Streamlit app</span>
+      <div class="day-tags"><span class="tag tag-uday">Uday</span><span class="tag tag-vaibhav">Vaibhav</span></div>
+      <span class="chevron">▶</span>
+    </div>
+    <div class="day-body" id="d8b">
+      <div class="section-label">Uday — App Structure & Inputs</div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Create <code>app/app.py</code>. Add page title: "Loan Default Risk Predictor". Add sidebar with project info. Build input widgets for all 15 features: sliders for numerical (loan_amnt, annual_inc, dti, etc.), selectboxes for categorical (grade, purpose, home_ownership, etc.).</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Load the pickle model at the top of the script with <code>@st.cache_resource</code> so it loads once only. Construct input as a DataFrame from widget values, matching exact column names from training.</span></div>
+
+      <div class="section-label">Vaibhav — Prediction Display & Charts</div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">On button click "Predict Risk": call <code>model.predict_proba(input_df)[0]</code> to get probability. Display result: if probability of default > 0.5 → show red warning "HIGH RISK", else green "LOW RISK". Show the actual probability percentage.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Add a second tab in the app called "Model Performance" that shows: the confusion matrix image, feature importance bar chart, and the model comparison table. This makes your app feel like a full product, not just a widget.</span></div>
+
+      <div class="resource-box">
+        <div class="rl">Resources for Day 8</div>
+        <a href="https://docs.streamlit.io/develop/api-reference" target="_blank">→ Streamlit API reference (official — all widgets listed)</a>
+        <a href="https://docs.streamlit.io/develop/concepts/architecture/caching" target="_blank">→ st.cache_resource — how to cache model loading</a>
+        <a href="https://www.analyticsvidhya.com/blog/2020/12/deploying-machine-learning-models-using-streamlit-an-introductory-guide-to-model-deployment/" target="_blank">→ Full loan model + Streamlit tutorial (Analytics Vidhya)</a>
+      </div>
+      <div class="deliverable">✓ End of Day 8: App runs locally with <code>streamlit run app/app.py</code>. Both tabs working. Prediction shows probability and risk label.</div>
+    </div>
+  </div>
+
+  <!-- DAY 9 -->
+  <div class="day-card" id="d9">
+    <div class="day-header" onclick="toggle('d9')">
+      <span class="day-num">Day 9</span>
+      <span class="day-title">Final documentation + modular Python code refactor</span>
+      <div class="day-tags"><span class="tag tag-uday">Uday</span><span class="tag tag-vaibhav">Vaibhav</span></div>
+      <span class="chevron">▶</span>
+    </div>
+    <div class="day-body" id="d9b">
+      <div class="section-label">Uday — Refactor into src/ modules</div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Create <code>src/data_loader.py</code> with a <code>load_data(filepath)</code> function. Create <code>src/preprocess.py</code> with a <code>build_pipeline()</code> function that returns the full ColumnTransformer. Create <code>src/train.py</code> with a <code>train_model(X_train, y_train)</code> function. Create <code>src/inference.py</code> with a <code>predict(model, input_df)</code> function.</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Add <code>__init__.py</code> to <code>src/</code> to make it a package. Update app.py to import from src instead of having logic inline.</span></div>
+
+      <div class="section-label">Vaibhav — Documentation</div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Write <code>docs/model_documentation.md</code>. Sections: 1) Problem Statement, 2) Dataset Description, 3) Features Used (with why each was chosen), 4) Model Selected (with why), 5) Evaluation Metrics Results (paste the comparison table), 6) Limitations, 7) Assumptions.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Limitations to include explicitly: trained on US P2P lending data so may not generalize to Indian loans; fairness concern — model uses grade which encodes historical biases; no temporal validation (didn't split by time period); SMOTE creates synthetic data which may not reflect real defaults.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Update the README.md to include: project overview, how to run (3-step instructions), screenshot of app, results summary table, team names, and module section numbers from the sprint that are covered.</span></div>
+
+      <div class="resource-box">
+        <div class="rl">Resources for Day 9</div>
+        <a href="https://docs.streamlit.io/develop/tutorials/llms/llm-quickstart" target="_blank">→ Streamlit docs home (for any widget questions)</a>
+        <a href="https://realpython.com/python-modules-packages/" target="_blank">→ Python packages and modules — RealPython guide</a>
+      </div>
+      <div class="deliverable">✓ End of Day 9: src/ modules complete. README polished. model_documentation.md with limitations written. Everything pushed to GitHub.</div>
+    </div>
+  </div>
+
+  <!-- DAY 10 -->
+  <div class="day-card" id="d10">
+    <div class="day-header" onclick="toggle('d10')">
+      <span class="day-num">Day 10</span>
+      <span class="day-title">End-to-end testing, GitHub cleanup & submission prep</span>
+      <div class="day-tags"><span class="tag tag-both">Both</span></div>
+      <span class="chevron">▶</span>
+    </div>
+    <div class="day-body" id="d10b">
+      <div class="section-label">Both — Testing</div>
+      <div class="task-row"><span class="who who-b">Both</span><span class="task-text">Clone the repo fresh on a new folder on ONE machine. Follow only the README instructions. Try to run the app from scratch. If anything breaks — that's a bug. Fix it before submission.</span></div>
+      <div class="task-row"><span class="who who-b">Both</span><span class="task-text">Test edge cases in the app: what happens if you set annual_inc to 0? What if dti is extremely high? The app should not crash — it should return a prediction (even an extreme one).</span></div>
+
+      <div class="section-label">Uday — GitHub Cleanup</div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Create a <code>.gitignore</code> with: <code>venv/</code>, <code>data/raw/</code> (dataset is too large for GitHub), <code>__pycache__/</code>, <code>.ipynb_checkpoints/</code>. Add a note in README: "Download dataset from [Kaggle link] and place in data/raw/".</span></div>
+      <div class="task-row"><span class="who who-u">Uday</span><span class="task-text">Check all notebooks render properly on GitHub (GitHub previews .ipynb files). Ensure output cells are visible — don't clear outputs before pushing.</span></div>
+
+      <div class="section-label">Vaibhav — Demo Prep</div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Prepare 5 demo scenarios: 2 high-risk (high interest rate + high dti + low income), 2 low-risk (low dti + high income + grade A), 1 borderline case. Know these inputs by heart for live demo.</span></div>
+      <div class="task-row"><span class="who who-v">Vaibhav</span><span class="task-text">Prepare your 90-second verbal summary: "We built a model that predicts if a borrower will default on a loan. We used Lending Club data with 800K rows. The key challenge was class imbalance — only 20% of loans default. We solved this with SMOTE. Our final model achieves F1 of [X] on the minority class, vs [Y] for a naive baseline."</span></div>
+
+      <div class="resource-box">
+        <div class="rl">Resources for Day 10</div>
+        <a href="https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files" target="_blank">→ .gitignore setup guide (GitHub official)</a>
+        <a href="https://streamlit.io/cloud" target="_blank">→ Streamlit Community Cloud — free app hosting (optional bonus)</a>
+      </div>
+      <div class="deliverable">✓ End of Day 10: App runs from a fresh clone. GitHub repo is clean. Demo scenarios ready. README has screenshot. Project is submittable.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggle(id) {
+  const card = document.getElementById(id);
+  const body = document.getElementById(id + 'b');
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.day-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.day-card').forEach(c => c.classList.remove('open'));
+  if (!isOpen) {
+    body.classList.add('open');
+    card.classList.add('open');
+  }
+}
+</script>
