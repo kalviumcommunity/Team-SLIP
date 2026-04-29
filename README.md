@@ -80,7 +80,8 @@ pip install -r requirements.txt
 pip install -e .
 
 # Download dataset from Kaggle and place in data/raw/
-# Run notebooks 01-11 in order
+# Run the master pipeline notebook to train the model:
+# notebooks/master_pipeline.ipynb
 # Then launch the app:
 streamlit run app/app.py
 ```

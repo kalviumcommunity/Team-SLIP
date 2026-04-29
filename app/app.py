@@ -73,8 +73,8 @@ def log_decision(input_df, probability, threshold):
         log_df.to_csv(LOG_FILE, index=False)
 
 def main():
-    st.set_page_config(page_title="Loan Default Risk Predictor", page_icon="🏦", layout="wide")
-    st.title("🏦 Loan Default Risk Predictor")
+    st.set_page_config(page_title="Loan Default Risk Predictor", page_icon="None", layout="wide")
+    st.title("Loan Default Risk Predictor")
     st.markdown("Advanced risk assessment for individual and batch loan applications.")
 
     try:
@@ -85,7 +85,7 @@ def main():
         st.error(f"Model file not found at `{MODEL_PATH}`. Run the training pipeline first.")
         return
 
-    tab1, tab2, tab3, tab4 = st.tabs(["🔍 Predict", "📦 Batch Processing", "📊 Model Performance", "📜 Decision History"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Predict", "Batch Processing", "Model Performance", "Decision History"])
 
     # ===== TAB 1: INDIVIDUAL PREDICTION =====
     with tab1:
@@ -93,7 +93,7 @@ def main():
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.subheader("💰 Loan Details")
+            st.subheader("Loan Details")
             loan_amount = st.slider("Loan Amount ($)", 5000, 250000, 50000, step=5000)
             interest_rate = st.slider("Interest Rate (%)", 2.0, 25.0, 12.0, step=0.5)
             loan_term = st.selectbox("Loan Term (months)", [12, 24, 36, 48, 60])
@@ -101,7 +101,7 @@ def main():
             has_cosigner = st.selectbox("Has Co-Signer?", ['Yes', 'No'])
 
         with col2:
-            st.subheader("👤 Borrower Profile")
+            st.subheader("Borrower Profile")
             age = st.slider("Age", 18, 69, 35)
             income = st.slider("Annual Income ($)", 15000, 150000, 65000, step=5000)
             education = st.selectbox("Education", ["Bachelor's", "Master's", "High School", "PhD"])
@@ -109,7 +109,7 @@ def main():
             marital_status = st.selectbox("Marital Status", ['Single', 'Married', 'Divorced'])
 
         with col3:
-            st.subheader("📋 Credit Profile")
+            st.subheader("Credit Profile")
             credit_score = st.slider("Credit Score", 300, 850, 650)
             months_employed = st.slider("Months Employed", 0, 120, 36)
             num_credit_lines = st.slider("Number of Credit Lines", 1, 4, 2)
@@ -119,7 +119,7 @@ def main():
 
         st.markdown("---")
 
-        if st.button("🔎 Assess Risk", type="primary", use_container_width=True):
+        if st.button("Assess Risk", type="primary", use_container_width=True):
             input_data = {
                 'Age': [age], 'Income': [income], 'LoanAmount': [loan_amount],
                 'CreditScore': [credit_score], 'MonthsEmployed': [months_employed],
@@ -144,10 +144,10 @@ def main():
             col_r1, col_r2 = st.columns([2, 1])
             with col_r1:
                 if probability >= threshold:
-                    st.error(f"⚠️ **HIGH RISK OF DEFAULT** — Probability: {probability*100:.1f}%")
+                    st.error(f"**HIGH RISK OF DEFAULT** — Probability: {probability*100:.1f}%")
                     st.warning(f"Confidence is above threshold ({threshold*100:.0f}%). Rejected.")
                 else:
-                    st.success(f"✅ **LOW RISK** — Default Probability: {probability*100:.1f}%")
+                    st.success(f"**LOW RISK** — Default Probability: {probability*100:.1f}%")
                     st.info("Confidence is within safe limits. Approved.")
             with col_r2:
                 st.metric("Risk Score", f"{probability*100:.1f}%")
@@ -155,7 +155,7 @@ def main():
 
             # SHAP Section
             st.markdown("---")
-            st.markdown("### 🧠 Decisions Explained (SHAP)")
+            st.markdown("### Decisions Explained (SHAP)")
             explainer = get_shap_explainer()
             if explainer:
                 try:
@@ -209,7 +209,7 @@ def main():
             batch_df = pd.read_csv(uploaded_file)
             st.write(f"Loaded {len(batch_df)} applicants.")
             
-            if st.button("🚀 Process Batch"):
+            if st.button("Process Batch"):
                 try:
                     batch_proc = add_features(batch_df) if config.get('feature_engineering') else batch_df
                     results = model.predict_proba(batch_proc)[:, 1]
@@ -221,7 +221,7 @@ def main():
                     st.dataframe(batch_df[['Default_Probability', 'Risk_Category'] + list(batch_df.columns[:-2])], use_container_width=True)
                     
                     csv = batch_df.to_csv(index=False).encode('utf-8')
-                    st.download_button("📥 Download Results", data=csv, file_name="loan_risk_report.csv", mime="text/csv")
+                    st.download_button("Download Results", data=csv, file_name="loan_risk_report.csv", mime="text/csv")
                 except Exception as e:
                     st.error(f"Error in batch processing: {e}. Ensure columns match the expected schema.")
 

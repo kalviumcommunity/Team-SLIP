@@ -1,0 +1,11 @@
+Age,Income,LoanAmount,CreditScore,MonthsEmployed,NumCreditLines,InterestRate,LoanTerm,DTIRatio,Education,EmploymentType,MaritalStatus,HasMortgage,HasDependents,LoanPurpose,HasCoSigner,timestamp,probability,decision
+27,25000,250000,483,36,2,12.0,12,0.67,Bachelor's,Full-time,Single,Yes,Yes,Home,Yes,2026-04-27 13:52:38,0.6566,High Risk
+27,25000,250000,483,36,2,12.0,12,0.67,Bachelor's,Full-time,Single,Yes,Yes,Home,Yes,2026-04-27 13:55:05,0.6566,High Risk
+27,145000,25000,483,36,2,9.0,12,0.67,Bachelor's,Full-time,Single,Yes,Yes,Home,Yes,2026-04-27 13:58:01,0.3476,Low Risk
+35,65000,160000,650,36,2,12.0,12,0.3,Bachelor's,Full-time,Single,Yes,Yes,Home,Yes,2026-04-29 10:32:02,0.3145,Low Risk
+35,65000,160000,314,36,2,12.0,12,0.3,Bachelor's,Full-time,Single,Yes,Yes,Home,Yes,2026-04-29 10:32:24,0.3788,Low Risk
+35,45000,160000,314,36,2,12.0,12,0.3,Bachelor's,Full-time,Single,Yes,Yes,Home,Yes,2026-04-29 10:32:32,0.4466,Low Risk
+23,45000,160000,314,36,2,12.0,12,0.3,Bachelor's,Full-time,Single,Yes,Yes,Home,Yes,2026-04-29 10:32:41,0.5731,Low Risk
+23,45000,160000,314,13,1,12.0,12,0.3,Bachelor's,Full-time,Single,Yes,Yes,Home,Yes,2026-04-29 10:32:55,0.6339,High Risk
+25,35000,135000,514,13,1,6.0,12,0.3,Bachelor's,Full-time,Single,Yes,Yes,Home,Yes,2026-04-29 11:05:53,0.3725,Low Risk
+35,65000,50000,650,36,2,12.0,12,0.3,Bachelor's,Full-time,Single,Yes,Yes,Home,Yes,2026-04-29 12:55:14,0.2196,Low Risk
