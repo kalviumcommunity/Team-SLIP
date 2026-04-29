@@ -1,0 +1,6 @@
+Age,Income,LoanAmount,CreditScore,MonthsEmployed,NumCreditLines,InterestRate,LoanTerm,DTIRatio,Education,EmploymentType,MaritalStatus,HasMortgage,HasDependents,LoanPurpose,HasCoSigner
+57,89901,7810,597,46,2,20.54,24,0.81,PhD,Unemployed,Single,No,Yes,Auto,Yes
+69,127292,184619,308,54,4,16.79,36,0.26,High School,Unemployed,Single,Yes,No,Business,No
+56,120355,142221,637,98,1,11.59,24,0.88,High School,Self-employed,Divorced,Yes,No,Other,No
+67,99615,105703,804,65,2,13.86,60,0.7,PhD,Self-employed,Divorced,No,Yes,Other,Yes
+63,83033,59996,741,9,3,20.64,12,0.42,Master's,Self-employed,Divorced,Yes,Yes,Other,No
